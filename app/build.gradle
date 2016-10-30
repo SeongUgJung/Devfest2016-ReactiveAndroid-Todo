@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "com.nobrain.devfest.reactiveandroid"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "2g"
+        maxProcessCount Math.max(1, ((int) (Runtime.getRuntime().availableProcessors() / 2)))
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force rootProject.ext.dependencies.library.support_annotation
+        }
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
+
+    packagingOptions.excludes = [
+            'META-INF/DEPENDENCIES',
+            'META-INF/LICENSE',
+            'META-INF/LICENSE.txt',
+            'LICENSE.txt',
+            'LICENSE',
+            'META-INF/license.txt',
+            'META-INF/NOTICE',
+            'NOTICE',
+            'asm-license.txt',
+            'META-INF/NOTICE.txt',
+            'META-INF/notice.txt',
+            'META-INF/ASL2.0',
+            '.readme',
+            '.readme.txt',
+            'META-INF/maven/com.google.guava/guava/pom.properties',
+            'META-INF/maven/com.google.guava/guava/pom.xml'
+    ]
+
+    lintOptions {
+        abortOnError false
+    }
+}
