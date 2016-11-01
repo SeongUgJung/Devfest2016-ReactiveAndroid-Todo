@@ -19,45 +19,45 @@ ext {
 ext.dependencies = [
         classpath: [
                 android    : "com.android.tools.build:gradle:2.2.2",
-                kotlin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$ext.kotlin",
+                kotlin     : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin",
                 android_apt: "com.neenbedankt.gradle.plugins:android-apt:1.8",
                 retrolambda: "me.tatarka:gradle-retrolambda:3.3.1"
         ],
 
         library  : [
-                support_appcompat   : "com.android.support:appcompat-v7:$ext.support_library",
-                support_v4          : "com.android.support:support-v4:$ext.support_library",
-                support_v13         : "com.android.support:support-v13:$ext.support_library",
-                support_recyclerview: "com.android.support:recyclerview-v7:$ext.support_library",
-                support_annotation  : "com.android.support:support-annotations:$ext.support_library",
-                support_design      : "com.android.support:design:$ext.support_library",
-                support_constraint  : "com.android.support.constraint:constraint-layout:1.0.0-alpha9",
+                support_appcompat   : "com.android.support:appcompat-v7:$support_library",
+                support_v4          : "com.android.support:support-v4:$support_library",
+                support_v13         : "com.android.support:support-v13:$support_library",
+                support_recyclerview: "com.android.support:recyclerview-v7:$support_library",
+                support_annotation  : "com.android.support:support-annotations:$support_library",
+                support_design      : "com.android.support:design:$support_library",
+                support_constraint  : "com.android.support.constraint:constraint-layout:1.0.+",
                 databinding_apt     : "com.android.databinding:compiler:2.+",
 
-                kotlin              : "org.jetbrains.kotlin:kotlin-stdlib:$ext.kotlin",
-                kotlin_reflection   : "org.jetbrains.kotlin:kotlin-reflect:$ext.kotlin",
+                kotlin              : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin",
+                kotlin_reflection   : "org.jetbrains.kotlin:kotlin-reflect:$kotlin",
 
-                butterknife         : "com.jakewharton:butterknife:$ext.butterknife",
-                butterknife_compiler: "com.jakewharton:butterknife-compiler:$ext.butterknife",
-                dagger2Apt          : "com.google.dagger:dagger-compiler:$ext.dagger2",
-                dagger2             : "com.google.dagger:dagger:$ext.dagger2",
+                butterknife         : "com.jakewharton:butterknife:$butterknife",
+                butterknife_compiler: "com.jakewharton:butterknife-compiler:$butterknife",
+                dagger2Apt          : "com.google.dagger:dagger-compiler:$dagger2",
+                dagger2             : "com.google.dagger:dagger:$dagger2",
                 jsr250              : "javax.annotation:jsr250-api:1.0",
 
-                dart                : "com.f2prateek.dart:dart:$ext.dart",
-                dart_processor      : "com.f2prateek.dart:dart-processor:$ext.dart",
-                henson              : "com.f2prateek.dart:henson:$ext.dart",
-                henson_processor    : "com.f2prateek.dart:henson-processor:$ext.dart",
+                dart                : "com.f2prateek.dart:dart:$dart",
+                dart_processor      : "com.f2prateek.dart:dart-processor:$dart",
+                henson              : "com.f2prateek.dart:henson:$dart",
+                henson_processor    : "com.f2prateek.dart:henson-processor:$dart",
 
 
-                rxandroid           : "io.reactivex:rxandroid:$ext.rxjava_android",
-                rxjava              : "io.reactivex:rxjava:$ext.rxjava",
+                rxandroid           : "io.reactivex:rxandroid:$rxjava_android",
+                rxjava              : "io.reactivex:rxjava:$rxjava",
 
-                retrofit2           : "com.squareup.retrofit2:retrofit:$ext.retrofit",
-                retrofit2_gson      : "com.squareup.retrofit2:converter-gson:$ext.retrofit",
-                retrofit2_rxjava    : "com.squareup.retrofit2:adapter-rxjava:$ext.retrofit",
+                retrofit2           : "com.squareup.retrofit2:retrofit:$retrofit",
+                retrofit2_gson      : "com.squareup.retrofit2:converter-gson:$retrofit",
+                retrofit2_rxjava    : "com.squareup.retrofit2:adapter-rxjava:$retrofit",
 
-                okhttp3             : "com.squareup.okhttp3:okhttp:$ext.okhttp",
-                okhttp3_logging     : "com.squareup.okhttp3:logging-interceptor:$ext.okhttp",
+                okhttp3             : "com.squareup.okhttp3:okhttp:$okhttp",
+                okhttp3_logging     : "com.squareup.okhttp3:logging-interceptor:$okhttp",
 
                 stetho_okhttp3      : "com.facebook.stetho:stetho-okhttp3:1.3.1",
 
@@ -70,19 +70,19 @@ ext.dependencies = [
         test     : [
                 testrunner                  : "com.android.support.test:runner:0.5",
                 testrule                    : "com.android.support.test:rules:0.5",
-                espresso_core               : "com.android.support.test.espresso:espresso-core:$ext.espresso",
-                espresso_intent             : "com.android.support.test.espresso:espresso-intents:$ext.espresso",
-                dexmaker_mockito            : "com.crittercism.dexmaker:dexmaker-mockito:$ext.dexmaker",
-                dexmaker_dx                 : "com.crittercism.dexmaker:dexmaker-dx:$ext.dexmaker",
+                espresso_core               : "com.android.support.test.espresso:espresso-core:$espresso",
+                espresso_intent             : "com.android.support.test.espresso:espresso-intents:$espresso",
+                dexmaker_mockito            : "com.crittercism.dexmaker:dexmaker-mockito:$dexmaker",
+                dexmaker_dx                 : "com.crittercism.dexmaker:dexmaker-dx:$dexmaker",
                 mockito                     : "org.mockito:mockito-core:1.10.19",
                 junit                       : "junit:junit:$junit",
                 assertj                     : "org.assertj:assertj-core:$assertj",
                 awaitility                  : "com.jayway.awaitility:awaitility:1.7.+",
-                assertj_android             : "com.squareup.assertj:assertj-android:$ext.assertj_android",
-                assertj_android_support     : "com.squareup.assertj:assertj-android-support-v4:$ext.assertj_android@aar",
-                assertj_android_appcompat   : "com.squareup.assertj:assertj-android-appcompat-v7:$ext.assertj_android@aar",
-                assertj_android_recyclerview: "com.squareup.assertj:assertj-android-recyclerview-v7:$ext.assertj_android@aar",
-                kotlin_test                 : "org.jetbrains.kotlin:kotlin-test:$ext.kotlin",
-                kotlin_test_junit           : "org.jetbrains.kotlin:kotlin-test-junit:$ext.kotlin"
+                assertj_android             : "com.squareup.assertj:assertj-android:$assertj_android",
+                assertj_android_support     : "com.squareup.assertj:assertj-android-support-v4:$assertj_android@aar",
+                assertj_android_appcompat   : "com.squareup.assertj:assertj-android-appcompat-v7:$assertj_android@aar",
+                assertj_android_recyclerview: "com.squareup.assertj:assertj-android-recyclerview-v7:$assertj_android@aar",
+                kotlin_test                 : "org.jetbrains.kotlin:kotlin-test:$kotlin",
+                kotlin_test_junit           : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin"
         ]
 ]

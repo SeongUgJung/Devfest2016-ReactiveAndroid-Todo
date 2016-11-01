@@ -38,34 +38,18 @@ rootProject.allprojects { project ->
                 compile rootProject.ext.dependencies.library.support_recyclerview
                 compile rootProject.ext.dependencies.library.support_annotation
                 compile rootProject.ext.dependencies.library.support_design
-                compile rootProject.ext.dependencies.library.support_constraint
+
+
+                compile rootProject.ext.dependencies.library.butterknife
+                apt rootProject.ext.dependencies.library.butterknife_compiler
+
 
                 compile rootProject.ext.dependencies.library.dagger2
                 apt rootProject.ext.dependencies.library.dagger2Apt
                 provided rootProject.ext.dependencies.library.jsr250
 
-                compile rootProject.ext.dependencies.library.dart
-                apt rootProject.ext.dependencies.library.dart_processor
-
-                compile rootProject.ext.dependencies.library.henson
-                apt rootProject.ext.dependencies.library.henson_processor
-
                 compile rootProject.ext.dependencies.library.rxandroid
                 compile rootProject.ext.dependencies.library.rxjava
-
-                compile rootProject.ext.dependencies.library.retrofit2
-                compile rootProject.ext.dependencies.library.retrofit2_gson
-                compile rootProject.ext.dependencies.library.retrofit2_rxjava
-                compile rootProject.ext.dependencies.library.okhttp3
-                compile rootProject.ext.dependencies.library.okhttp3_logging
-                compile rootProject.ext.dependencies.library.stetho_okhttp3
-
-                compile rootProject.ext.dependencies.library.picasso
-
-                provided rootProject.ext.dependencies.library.auto_gson
-                apt rootProject.ext.dependencies.library.auto_gson
-                apt rootProject.ext.dependencies.library.auto_value_gson
-                provided rootProject.ext.dependencies.library.auto_value_gson
 
             }
 

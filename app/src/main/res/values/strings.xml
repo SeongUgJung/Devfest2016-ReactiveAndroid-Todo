@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DevfestReactiveAndroid</string>
+    <string name="add">추가</string>
+    <string name="delete">삭제</string>
+    <string name="save">저장</string>
+    <string name="edit_todo">Todo 기록하기</string>
+    <string name="write_todo_content">Todo 내용을 적어주세요</string>
 </resources>
