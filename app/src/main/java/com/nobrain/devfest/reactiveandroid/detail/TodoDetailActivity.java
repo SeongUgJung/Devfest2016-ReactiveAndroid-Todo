@@ -75,9 +75,6 @@ public class TodoDetailActivity extends AppCompatActivity {
     private void delete(long id) {
         if (id > 0) {
             TodoRepository.getRepository().remove(id);
-            Intent data = new Intent();
-            data.putExtra("id", id);
-            setResult(RESULT_OK, data);
         }
         finish();
     }
@@ -86,15 +83,11 @@ public class TodoDetailActivity extends AppCompatActivity {
         long extraId;
         if (id > 0) {
             TodoRepository.getRepository().updateTodo(id, text);
-            extraId = id;
         } else {
             extraId = System.currentTimeMillis();
             TodoRepository.getRepository().addTodo(extraId, text);
         }
 
-        Intent data = new Intent();
-        data.putExtra("id", extraId);
-        setResult(RESULT_OK, data);
         finish();
 
     }

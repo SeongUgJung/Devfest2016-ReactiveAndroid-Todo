@@ -15,16 +15,16 @@ import com.nobrain.devfest.reactiveandroid.detail.TodoDetailActivity;
 import com.nobrain.devfest.reactiveandroid.list.adapter.TodoAdapter;
 import com.nobrain.devfest.reactiveandroid.repository.TodoRepository;
 import com.nobrain.devfest.reactiveandroid.repository.domain.Todo;
+import com.nobrain.devfest.reactiveandroid.repository.observer.DataObserver;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class TodoListActivity extends AppCompatActivity {
 
-    public static final int REQ_MODIFY = 102;
-    private static final int REQ_ADD = 101;
     @BindView(R.id.list_todo_list)
     RecyclerView listTodo;
 
@@ -41,6 +41,50 @@ public class TodoListActivity extends AppCompatActivity {
         initTodoDatas();
 
         TodoRepository.getRepository().getTodos();
+
+        DataObserver.getInstance().register(this, Todo.class, observable -> {
+            return observable.filter(it -> it.added())
+                    .map(todo -> todo.data)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(todo -> {
+                        adapter.add(todo);
+                        adapter.notifyDataSetChanged();
+                    });
+        });
+        DataObserver.getInstance().register(this, Todo.class, observable -> {
+            return observable.filter(it -> it.updated())
+                    .map(todo -> todo.data)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(todo -> {
+                        for (int idx = 0; idx < adapter.getItemCount(); idx++) {
+                            if (adapter.getItem(idx).id == todo.id) {
+                                adapter.getItem(idx).content = todo.content;
+                                break;
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    });
+        });
+        DataObserver.getInstance().register(this, Todo.class, observable -> {
+            return observable.filter(it -> it.deleted())
+                    .map(todo -> todo.data)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(todo -> {
+                        for (int idx = 0; idx < adapter.getItemCount(); idx++) {
+                            if (adapter.getItem(idx).id == todo.id) {
+                                adapter.remove(idx);
+                                break;
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    });
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        DataObserver.getInstance().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -53,53 +97,11 @@ public class TodoListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_menu_add) {
 
-            startActivityForResult(new Intent(this, TodoDetailActivity.class), REQ_ADD);
+            startActivity(new Intent(this, TodoDetailActivity.class));
 
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (resultCode != RESULT_OK) {
-            return;
-        }
-
-        if (requestCode == REQ_ADD) {
-            initTodoDatas();
-        } else if (requestCode == REQ_MODIFY) {
-            long id = data.getLongExtra("id", -1);
-            if (id > 0) {
-                updateItem(id);
-            }
-        }
-    }
-
-    private void updateItem(long id) {
-        int itemPosition = -1;
-        for (int idx = 0, size = adapter.getItemCount(); idx < size; idx++) {
-            if (adapter.getItem(idx).id == id) {
-                itemPosition = idx;
-                break;
-            }
-        }
-
-        if (itemPosition < 0) {
-            return;
-        }
-
-        if (TodoRepository.getRepository().hasItem(id)) {
-
-            Todo item = adapter.getItem(itemPosition);
-            item.content = TodoRepository.getRepository().get(id).content;
-        } else {
-            adapter.remove(itemPosition);
-        }
-
-        adapter.notifyDataSetChanged();
-
     }
 
     private void initListView() {
@@ -111,7 +113,7 @@ public class TodoListActivity extends AppCompatActivity {
             long id = adapter.getItem(position).id;
             Intent intent = new Intent(this, TodoDetailActivity.class);
             intent.putExtra("id", id);
-            startActivityForResult(intent, REQ_MODIFY);
+            startActivity(intent);
         });
     }
 

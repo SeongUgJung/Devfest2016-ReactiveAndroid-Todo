@@ -2,6 +2,8 @@ package com.nobrain.devfest.reactiveandroid.repository;
 
 
 import com.nobrain.devfest.reactiveandroid.repository.domain.Todo;
+import com.nobrain.devfest.reactiveandroid.repository.observer.DataObserver;
+import com.nobrain.devfest.reactiveandroid.repository.observer.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,15 @@ public class TodoRepository {
         Todo item = new Todo(id);
         item.content = content;
         todos.add(item);
+        DataObserver.getInstance().notify(Result.added(item));
+
     }
 
     public void updateTodo(long id, String content) {
         for (Todo todo : todos) {
             if (todo.id == id) {
                 todo.content = content;
+                DataObserver.getInstance().notify(Result.updated(todo));
                 break;
             }
         }
@@ -45,19 +50,10 @@ public class TodoRepository {
             Todo todo = todos.get(i);
             if (todo.id == id) {
                 todos.remove(todo);
+                DataObserver.getInstance().notify(Result.deleted(todo));
                 break;
             }
         }
-    }
-
-    public boolean hasItem(long id) {
-        for (Todo todo : todos) {
-            if (todo.id == id) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public Todo get(long id) {
